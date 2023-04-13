@@ -68,7 +68,7 @@ class Saver:
         if self.folder is None:
             return
 
-        idx = batch['idx']
+        idxs = batch['idx']
         predictions = output['predictions']
 
         path = os.path.join(self.folder, prefix)
@@ -76,7 +76,8 @@ class Saver:
             path = os.path.join(path, self.ckpt)
         os.makedirs(path, exist_ok=True)
 
-        self.save(batch, predictions, path, idx, 0)
+        for _, idx in enumerate(idxs): 
+            self.save(batch, predictions, path, idx, 0)
 
     def save(self, batch, predictions, path, idx, i):
         """
