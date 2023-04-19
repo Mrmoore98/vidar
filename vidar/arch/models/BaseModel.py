@@ -16,7 +16,7 @@ class BaseModel(nn.Module):
         self.losses = torch.nn.ModuleDict()
 
         if cfg is not None:
-            self.num_scales = cfg_has(cfg.model, 'num_scales', 99)
+            self.num_scales = cfg_has(cfg, 'num_scales', 99)
 
     def _forward_unimplemented(self, *args):
         pass

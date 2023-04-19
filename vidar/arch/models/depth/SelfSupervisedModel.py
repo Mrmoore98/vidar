@@ -21,8 +21,8 @@ class SelfSupervisedModel(BaseModel, ABC):
     def __init__(self, cfg):
         super().__init__(cfg)
         self.view_synthesis = ViewSynthesis()
-        self.set_attr(cfg.model, 'use_gt_pose', False)
-        self.set_attr(cfg.model, 'use_gt_intrinsics', True)
+        self.set_attr(cfg, 'use_gt_pose', False)
+        self.set_attr(cfg, 'use_gt_intrinsics', True)
 
         if not self.use_gt_intrinsics:
             self.camera_model = cfg_has(cfg.networks.intrinsics, 'camera_model', 'UCM')
