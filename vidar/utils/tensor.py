@@ -104,7 +104,7 @@ def pixel_grid(hw, b=None, with_ones=False, device=None, normalize=False):
 
 def norm_pixel_grid(grid, hw=None, in_place=False):
     """
-    Normalize a pixel grid to be between [0,1]
+    Normalize a pixel grid to be between [-1,1]
 
     Parameters
     ----------

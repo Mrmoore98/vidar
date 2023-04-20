@@ -41,3 +41,8 @@ class BaseModel(nn.Module):
     def set_attr(self, cfg, key, default):
         """Set an attribute for the model"""
         self.__setattr__(key, cfg_has(cfg, key, default))
+        
+    def set_module(self, cfg, key, build_fn, default=None):
+        """Set an attribute for the model"""
+        if default is not None:
+            self.__setattr__(key, build_fn(cfg_has(cfg, key, default)))
