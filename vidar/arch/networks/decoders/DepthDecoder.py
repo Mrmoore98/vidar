@@ -20,6 +20,7 @@ class DepthDecoder(nn.Module, ABC):
     cfg : Config
         Configuration with parameters
     """
+
     def __init__(self, cfg):
         super().__init__()
 
@@ -27,7 +28,9 @@ class DepthDecoder(nn.Module, ABC):
         self.use_skips = cfg.use_skips
 
         self.num_ch_enc = cfg.num_ch_enc
-        self.num_ch_dec = np.array([16, 32, 64, 128, 256])
+        self.num_ch_dec = cfg_has(
+            cfg, 'num_ch_dec', np.array([16, 32, 64, 128, 256]))
+        self.num_ch_dec = np.array(self.num_ch_dec)
         self.num_ch_out = cfg.num_ch_out
 
         self.convs = OrderedDict()
@@ -58,7 +61,8 @@ class DepthDecoder(nn.Module, ABC):
         elif cfg.activation == 'softmax':
             self.activation = nn.Softmax(dim=1)
         else:
-            raise ValueError('Invalid activation function {}'.format(cfg.activation))
+            raise ValueError(
+                'Invalid activation function {}'.format(cfg.activation))
 
     def forward(self, input_features):
         """Network forward pass"""
