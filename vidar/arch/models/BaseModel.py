@@ -17,6 +17,9 @@ class BaseModel(nn.Module):
 
         if cfg is not None:
             self.num_scales = cfg_has(cfg, 'num_scales', 99)
+    
+    def post_init(self):
+        pass
 
     def _forward_unimplemented(self, *args):
         pass
