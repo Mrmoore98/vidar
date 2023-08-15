@@ -13,10 +13,12 @@ class BaseNet(nn.Module):
         super().__init__()
         self.networks = torch.nn.ModuleDict()
         self.blocks = torch.nn.ModuleDict()
+        
+        self.inv = cfg.has('inv',False)
 
         if cfg_has(cfg, 'depth_range'):
             self.to_depth = SigmoidToInvDepth(
-                cfg.depth_range[0], cfg.depth_range[1], return_depth=True)
+                cfg.depth_range[0], cfg.depth_range[1], return_depth=not self.inv)
         else:
             self.to_depth = None
 

@@ -41,7 +41,7 @@ def read_png_depth(file):
     """Reads a .png depth map"""
     depth_png = np.array(read_image(file), dtype=int)
     assert (np.max(depth_png) > 255), 'Wrong .png depth file'
-    depth = depth_png.astype(np.float) / 256.
+    depth = depth_png.astype(np.float32) / 256.
     depth[depth_png == 0] = -1.
     return np.expand_dims(depth, axis=2)
 
