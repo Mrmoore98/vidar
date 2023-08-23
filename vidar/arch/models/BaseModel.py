@@ -20,6 +20,9 @@ class BaseModel(nn.Module):
     
     def post_init(self):
         pass
+    
+    def post_loadckpt(self):
+        pass
 
     def _forward_unimplemented(self, *args):
         pass
