@@ -3,6 +3,7 @@
 import os
 from abc import ABC
 
+import numpy as np
 from torch.utils.data import Dataset
 
 from vidar.utils.types import is_list
@@ -54,10 +55,13 @@ class BaseDataset(Dataset, ABC):
         self.bwd_context = 0 if len(context) == 0 else - min(0, min(context))
         self.fwd_context = 0 if len(context) == 0 else max(0, max(context))
 
-        self.context = [v for v in range(- self.bwd_context, 0)] + \
-                       [v for v in range(1, self.fwd_context + 1)]
+        self.context = np.array([v for v in range(- self.bwd_context, 0)] + \
+                       [v for v in range(1, self.fwd_context + 1)])
+        
+        self.bwd_context = [v for v in range(- self.bwd_context, 0)]
+        self.fwd_context = [v for v in range(1, self.fwd_context + 1)]
 
-        self.num_context = self.bwd_context + self.fwd_context
+        self.num_context = len(self.bwd_context) + len(self.fwd_context)
         self.with_context = self.num_context > 0
 
         self.ontology = ontology
